@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">ProgenickFR</string>
+    <!-- Login Screen -->
+    <string name="login_screen_text_spain" translatable="false">Español(España)</string>
+    <string name="login_screen_text_email" translatable="false">Correo electrónico o N° de nomina</string>
+    <string name="login_screen_text_password" translatable="false">Contraseña</string>
+    <string name="login_screen_text_login" translatable="false">Iniciar sesón</string>
+    <string name="login_screen_text_forgotten_password" translatable="false">¿Has olvidado la contraseña?</string>
+    <string name="login_screen_text_New_Acoount" translatable="false">Crear cuenta nueva</string>
+    <!--  New Account Screen number-->
+    <string name="newAccount_screen_text_firstText" translatable="false">Unete a Productos Difo</string>
+    <string name="newAccount_screen_text_secondText">Necesitaras una cuenta de Productos Difo para acceder a los beneficios.Crea una cuenta para conocer los beneficios de Productos Difo.</string>
+    <string name="newAccount_screen_text_thirdText">Crear cuenta nueva</string>
+    <string name="newAccount_screen_text_fourthText">Buscar mi cuenta</string>
+    <!--  Add Register-->
+    <string name="addRegister_screen_text_firstText">¿Como te llamas?</string>
+    <string name="addRegister_screen_text_secondText">Ingresa tu nombre completo,sexo, celular, lugar de procedencía y numero de nomina</string>
+    <string name="addRegister_screen_text_thirdText">Nombre</string>
+    <string name="addRegister_screen_text_fourthText">Apellidos</string>
+    <string name="addRegister_screen_text_fifthText">Numero de nomina</string>
+    <string name="addRegister_screen_text_sixthText">Lugar de procedencia</string>
+    <string name="addRegister_screen_text_seventhText">Siguiente</string>
+    <string name="addRegister_screen_text_eighthText">Buscar mi cuenta</string>
+    <string name="addRegister_screen_text_nineText">Sexo</string>
+    <string name="addRegister_screen_text_tenthText">Celular</string>
+    <!--  InformationPerfil-->
+    <string name="informationPerfil_screen_text_firstText">¿Cuando Naciste?</string>
+    <string name="informationPerfil_screen_text_secondText">Elige tu fecha de nacimiento. Configura tu contraseña, preferentemente una nueva a distintas cuentas.</string>
+    <string name="informationPerfil_screen_text_thirdText">¿Por que tengo que indicar mi fecha de nacimiento?</string>
+    <string name="informationPerfil_screen_text_fourthText">Fecha de nacimiento</string>
+    <string name="informationPerfil_screen_text_fifthText">Siguiente</string>
+    <string name="informationPerfil_screen_text_sixthText">Buscar mi cuenta</string>
+    <string name="informationPerfil_screen_text_seventhText">Contraseña nueva, mayor a 6 digitos numeros y letras</string>
+    <string name="informationPerfil_screen_text_eighthText">Repite contraseña, para confirmacion</string>
+    <string name="informationPerfil_screen_text_nineText">De no activarse el boton !siguiente!, verificar contraseña</string>
+    <!--  Sing in google-->
+    <string name="default_web_client_id">
+    TU_CLIENT_ID_WEB.apps.googleusercontent.com
+</string>
 </resources>

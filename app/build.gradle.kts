@@ -42,11 +42,11 @@ android {
 dependencies {
     //New Dependencias
 
+    //Lottie-Animación
+    implementation("com.airbnb.android:lottie-compose:6.6.2")
+
     //NavHosto
     implementation("androidx.navigation:navigation-compose:2.7.7")
-
-
-
 
 
 ///Default System
