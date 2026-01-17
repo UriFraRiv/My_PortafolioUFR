@@ -1,4 +1,4 @@
-package com.example.progenickfr.ViewModel.login
+package com.example.progenickfr.features.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,7 +41,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun LoginScreen(navigatetoNewAccount: () -> Unit={},
-                navigatetoStartPerfil: () -> Unit={},
+                navigatetoStartPerfil: () -> Unit ={},
 )
 {
     var Valcorreo by remember { mutableStateOf("") }
@@ -50,89 +50,90 @@ fun LoginScreen(navigatetoNewAccount: () -> Unit={},
 
     LaunchedEffect(Unit) {
         delay(2000)
-        showLoading= false
+        showLoading = false
     }
     if (showLoading)
     {val animation by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.manrobt))
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize().background(Color.Black)
+            horizontalAlignment = Alignment.Companion.CenterHorizontally,
+            modifier = Modifier.Companion.fillMaxSize().background(Color.Companion.Black)
         ) {
             LottieAnimation(composition = animation)
-        }} else {
+        }
+    } else {
         Scaffold { pading ->
             Column(
 
-                modifier = Modifier
+                modifier = Modifier.Companion
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(vertical = 20.dp, horizontal = 10.dp)
+                    .padding(vertical = 20.dp, horizontal = 20.dp)
                     .padding(pading)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.Companion.CenterHorizontally
             ) {
 
                 Image(
                     painter = painterResource(R.drawable.ic_progenicktransp),
-                    contentDescription = "", modifier = Modifier.size(220.dp),
-                    contentScale = ContentScale.Fit
+                    contentDescription = "", modifier = Modifier.Companion.size(220.dp),
+                    contentScale = ContentScale.Companion.Fit
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.Companion.height(15.dp))
 
                 Text("!Hola, Gracias por ser parte de nosotros!", fontSize = 25.sp)
 
-                Spacer(modifier = Modifier.height(35.dp))
+                Spacer(modifier = Modifier.Companion.height(35.dp))
 
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.Companion.fillMaxWidth(),
                     value = Valcorreo,
                     onValueChange = { Valcorreo = it },
                     shape = RoundedCornerShape(25),
 
                     label = { Text(text = stringResource(id = R.string.login_screen_text_email)) }
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.Companion.height(10.dp))
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.Companion.fillMaxWidth(),
                     value = ValPassword,
                     onValueChange = { ValPassword = it },
-                    shape = RoundedCornerShape(25),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(25),
 
                     label = { Text(text = stringResource(id = R.string.login_screen_text_password)) }
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.Companion.height(10.dp))
 
                 Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {  } // botón Google temporal
+                    modifier = Modifier.Companion.fillMaxWidth(),
+                    onClick = { } // botón Google temporal
                 ) {
                     Text("Iniciar sesión con Google")
                 }
                 Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navigatetoStartPerfil()},
+                    modifier = Modifier.Companion.fillMaxWidth(),
+                    onClick = { navigatetoStartPerfil() },
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.Blue,
-                        disabledContentColor = Color.Black
+                        contentColor = Color.Companion.Blue,
+                        disabledContentColor = Color.Companion.Black
                     )
                 ) {
                     Text(text = stringResource(id = R.string.login_screen_text_login))
 
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.Companion.height(10.dp))
                 Text(
                     text = stringResource(id = R.string.login_screen_text_forgotten_password),
-                    Modifier.clickable(onClick = {})
+                    Modifier.Companion.clickable(onClick = {})
                 )
-                Spacer(modifier = Modifier.height(100.dp))
+                Spacer(modifier = Modifier.Companion.height(100.dp))
 
                 Button(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.Companion.fillMaxWidth(),
                     onClick = { navigatetoNewAccount() }) {
                     Text(text = stringResource(R.string.login_screen_text_New_Acoount))
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.Companion.height(10.dp))
 
                 Icon(
                     painter = painterResource(R.drawable.ic_launcher_foreground),
