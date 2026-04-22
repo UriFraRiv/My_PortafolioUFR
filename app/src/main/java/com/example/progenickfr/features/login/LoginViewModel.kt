@@ -1,29 +1,51 @@
 package com.example.progenickfr.features.login
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.progenickfr.domain.repository.UserRepository // Importamos la Interfaz
+import com.google.firebase.auth.FirebaseAuth
 
-class PerfilViewModel : ViewModel() {
-    // Datos del usuario
-    val userName = mutableStateOf("User")
-    val attendance = mutableStateOf(5)
-    val absences = mutableStateOf(2)
-    val position = mutableStateOf("Desarrollador")
+// Ahora depende de la Interfaz (UserRepository), no de la clase directa
+class LoginViewModel(private val repository: UserRepository) : ViewModel() {
 
-    // Código del usuario
-    val code = mutableStateOf("") // <- AQUÍ estaba el problema
+    var email by mutableStateOf("")
+    var password by mutableStateOf("")
+    var isLoading by mutableStateOf(false)
+    var errorMsg by mutableStateOf<String?>(null)
 
-    // Función para actualizar posición según código
-    fun updatePositionFromCode() {
-        position.value = when (code.value) {
-            "1111" -> "Desarrollador"
-            "2222" -> "Administrador"
-            "3333" -> "Ingeniero"
-            "4444" -> "Técnico"
-            else -> "Invitado"
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    fun iniciarSesion(onSuccess: (String) -> Unit) {
+        if (email.isEmpty() || password.isEmpty()) {
+            errorMsg = "Completa todos los campos"
+            return
         }
-    }
 
-    // Drawer seleccionado
-    val selectedDrawerIndex = mutableStateOf(0)
+        isLoading = true
+        errorMsg = null
+
+        // PASO 1: Autenticar con Firebase Auth
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener { result ->
+                val uid = result.user?.uid ?: ""
+
+                // PASO 2: Validar en Firestore usando nuestro Repositorio
+                repository.checkUserExists(uid) { user ->
+                    isLoading = false
+                    if (user != null) {
+                        // PASO 3: Éxito total
+                        onSuccess(uid)
+                    } else {
+                        errorMsg = "Usuario autenticado, pero perfil no encontrado en base de datos."
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                isLoading = false
+                // Aquí podrías ser más específico con el error si quisieras
+                errorMsg = "Credenciales incorrectas o error de red"
+            }
+    }
 }

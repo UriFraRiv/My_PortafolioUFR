@@ -16,7 +16,7 @@ import com.example.progenickfr.R
 import kotlinx.coroutines.delay
 
 @Composable
-
+//navigateToNext: () -> Unit
 fun AnimationLogin (navigateToNext: () -> Unit){
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.powerbot))

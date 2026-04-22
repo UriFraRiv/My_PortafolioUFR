@@ -3,11 +3,11 @@ package com.example.progenickfr.navigation
 
 import kotlinx.serialization.Serializable
 
-@Serializable
-object LoginScreen
+@Serializable object RouteLogin
+@Serializable data class RouteAnimation(val userId: String)
+@Serializable data class RouteHome(val userId: String)
+@Serializable object RouteMachine
 
-@Serializable
-object AnimationLogin
+@Serializable object MaterialWarehouse
 
-@Serializable
-object StartPerfilHome
+@Serializable object Profile

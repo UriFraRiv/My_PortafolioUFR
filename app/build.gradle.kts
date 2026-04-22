@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -43,6 +44,15 @@ android {
 dependencies {
     //New Dependencias
 
+    // --- FIREBASE (Importante para MVVM) ---
+    // Usamos el BoM para que las versiones de Firebase no choquen entre sí
+    implementation(platform(libs.androidx.compose.bom)) // BOM de Compose
+    implementation(platform(libs.firebase.bom))        // BOM de Firebase
+
+    implementation(libs.firebase.auth)          // Autenticación (Login)
+    implementation(libs.firebase.firestore)     // Base de datos (Users/Reports)
+
+
     //Lottie-Animación
     implementation("com.airbnb.android:lottie-compose:6.6.2")
 
@@ -63,6 +73,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

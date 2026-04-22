@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -40,107 +41,107 @@ import com.example.progenickfr.R
 import kotlinx.coroutines.delay
 
 @Composable
-fun LoginScreen(navigatetoNewAccount: () -> Unit={},
-                navigatetoStartPerfil: () -> Unit ={},
-)
-{
-    var Valcorreo by remember { mutableStateOf("") }
-    var ValPassword by remember { mutableStateOf("") }
+fun LoginScreen(
+    // Inyectamos el ViewModel (asegúrate de pasarlo en tu NavGraph)
+    loginViewModel: LoginViewModel,
+    navigatetoNewAccount: () -> Unit = {},
+    navigatetoHome: (String) -> Unit = {} // Cambiamos para recibir el UID
+) {
     var showLoading by remember { mutableStateOf(true) }
 
+    // Splash Screen con Lottie
     LaunchedEffect(Unit) {
         delay(2000)
         showLoading = false
     }
-    if (showLoading)
-    {val animation by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.manrobt))
+
+    if (showLoading) {
+        val animation by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.manrobt))
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Companion.CenterHorizontally,
-            modifier = Modifier.Companion.fillMaxSize().background(Color.Companion.Black)
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().background(Color.Black)
         ) {
             LottieAnimation(composition = animation)
         }
     } else {
-        Scaffold { pading ->
+        Scaffold { padding ->
             Column(
-
-                modifier = Modifier.Companion
+                modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
-                    .padding(vertical = 20.dp, horizontal = 20.dp)
-                    .padding(pading)
+                    .padding(20.dp)
+                    .padding(padding)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.Companion.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
                 Image(
                     painter = painterResource(R.drawable.ic_progenicktransp),
-                    contentDescription = "", modifier = Modifier.Companion.size(220.dp),
-                    contentScale = ContentScale.Companion.Fit
+                    contentDescription = null,
+                    modifier = Modifier.size(220.dp),
+                    contentScale = ContentScale.Fit
                 )
-                Spacer(modifier = Modifier.Companion.height(15.dp))
 
-                Text("!Hola, Gracias por ser parte de nosotros!", fontSize = 25.sp)
+                Spacer(modifier = Modifier.height(15.dp))
+                Text("¡Hola, Gracias por ser parte de nosotros!", fontSize = 25.sp)
+                Spacer(modifier = Modifier.height(35.dp))
 
-                Spacer(modifier = Modifier.Companion.height(35.dp))
-
+                // Campo de Correo conectado al ViewModel
                 OutlinedTextField(
-                    modifier = Modifier.Companion.fillMaxWidth(),
-                    value = Valcorreo,
-                    onValueChange = { Valcorreo = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    value = loginViewModel.email,
+                    onValueChange = { loginViewModel.email = it },
                     shape = RoundedCornerShape(25),
-
                     label = { Text(text = stringResource(id = R.string.login_screen_text_email)) }
                 )
-                Spacer(modifier = Modifier.Companion.height(10.dp))
-                OutlinedTextField(
-                    modifier = Modifier.Companion.fillMaxWidth(),
-                    value = ValPassword,
-                    onValueChange = { ValPassword = it },
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(25),
 
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Campo de Contraseña conectado al ViewModel
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = loginViewModel.password,
+                    onValueChange = { loginViewModel.password = it },
+                    shape = RoundedCornerShape(25),
                     label = { Text(text = stringResource(id = R.string.login_screen_text_password)) }
                 )
-                Spacer(modifier = Modifier.Companion.height(10.dp))
 
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // BOTÓN DE LOGIN REAL
                 Button(
-                    modifier = Modifier.Companion.fillMaxWidth(),
-                    onClick = { } // botón Google temporal
-                ) {
-                    Text("Iniciar sesión con Google")
-                }
-                Button(
-                    modifier = Modifier.Companion.fillMaxWidth(),
-                    onClick = { navigatetoStartPerfil() },
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        loginViewModel.iniciarSesion { uid ->
+                            navigatetoHome(uid) // Navegamos pasando el UID de Firebase
+                        }
+                    },
+                    enabled = !loginViewModel.isLoading, // Se bloquea mientras carga
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.Companion.Blue,
-                        disabledContentColor = Color.Companion.Black
+                        containerColor = Color.Blue, // Ajusta a tu estilo
+                        contentColor = Color.White
                     )
                 ) {
-                    Text(text = stringResource(id = R.string.login_screen_text_login))
-
+                    if (loginViewModel.isLoading) {
+                        CircularProgressIndicator(modifier = Modifier.size(20.dp), color = Color.White)
+                    } else {
+                        Text(text = stringResource(id = R.string.login_screen_text_login))
+                    }
                 }
-                Spacer(modifier = Modifier.Companion.height(10.dp))
+
+                // Mostrar error si la validación falla
+                loginViewModel.errorMsg?.let {
+                    Text(text = it, color = Color.Red, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp))
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Botón de cuenta nueva
                 Text(
-                    text = stringResource(id = R.string.login_screen_text_forgotten_password),
-                    Modifier.Companion.clickable(onClick = {})
+                    text = stringResource(R.string.login_screen_text_New_Acoount),
+                    modifier = Modifier.clickable { navigatetoNewAccount() },
+                    color = Color.Gray
                 )
-                Spacer(modifier = Modifier.Companion.height(100.dp))
-
-                Button(
-                    modifier = Modifier.Companion.fillMaxWidth(),
-                    onClick = { navigatetoNewAccount() }) {
-                    Text(text = stringResource(R.string.login_screen_text_New_Acoount))
-                }
-                Spacer(modifier = Modifier.Companion.height(10.dp))
-
-                Icon(
-                    painter = painterResource(R.drawable.ic_launcher_foreground),
-                    contentDescription = null
-                )
-
-
             }
         }
     }
