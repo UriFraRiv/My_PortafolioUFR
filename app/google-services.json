@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "3397180509",
-    "project_id": "uringek-1dbd1",
-    "storage_bucket": "uringek-1dbd1.firebasestorage.app"
+    "project_number": "1086636323583",
+    "project_id": "frprogenick",
+    "storage_bucket": "frprogenick.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:3397180509:android:fdd3dee0d4036b33fb41b4",
+        "mobilesdk_app_id": "1:1086636323583:android:e80a1ea6b1948d673dd2ca",
         "android_client_info": {
           "package_name": "com.example.progenickfr"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBWe6rG9wuJtqTqHW-u8rBwrOq06GGY8MI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:3397180509:android:0b2a8253532a161cfb41b4",
-        "android_client_info": {
-          "package_name": "com.example.uridif"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBWe6rG9wuJtqTqHW-u8rBwrOq06GGY8MI"
+          "current_key": "AIzaSyC1o8gThwX0Nygb4Uctj9AN76y5FNQj-z8"
         }
       ],
       "services": {

@@ -9,11 +9,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,89 +31,126 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.time.format.TextStyle
 
 @Composable
 fun MaterialWarehouse(
     materialViewModel: materialneed
-)
-{
-    var materiale by remember { mutableStateOf("") }
+) {
+    // Usamos un fondo gris muy oscuro en lugar de negro puro para que se vea más moderno
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF121212))
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "FRPROGENICK",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF4CAF50) // Un verde industrial
+        )
 
-    Column (modifier=Modifier
-        .fillMaxSize()
-        .background(Color.Black)
-        .padding(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally){
+        Text(
+            text = "Control de Almacén",
+            fontSize = 16.sp,
+            color = Color.Gray
+        )
 
-        Text("Material/Almacen",
-            fontSize = 33.sp,
-            color = Color.White)
-        Spacer(Modifier.padding(vertical = 10.dp))
-        Column {
-            Text("Busqueda de material",
-                fontSize = 20.sp,
-                color = Color.White)
-            Spacer(Modifier.padding(vertical = 10.dp))
-            OutlinedTextField(value =materialViewModel.searchMAterial, onValueChange = {materialViewModel.searchMAterial=it})
-            Spacer(Modifier.padding(vertical = 30.dp))
+        Spacer(Modifier.height(24.dp))
 
-            Row {
-                Text(
-                    "Existe",
-                    fontSize = 20.sp,
-                    color = Color.White
+        // TARJETA DE BÚSQUEDA
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E)),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Búsqueda de Material", color = Color.White, fontWeight = FontWeight.Medium)
+                Spacer(Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = materialViewModel.searchMAterial,
+                    onValueChange = { materialViewModel.searchMAterial = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Nombre o ID") },
+                    textStyle = androidx.compose.ui.text.TextStyle(color = Color.White),
+                    singleLine = true
                 )
-                Spacer(modifier=Modifier.padding(horizontal = 40.dp))
-                Box(
-                    modifier = Modifier
-                        .background(Color.Green)
-                        .size(20.dp)
+
+                Spacer(Modifier.height(16.dp))
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Estado en inventario:", color = Color.LightGray, fontSize = 14.sp)
+                    Spacer(Modifier.width(12.dp))
+                    // Un indicador circular más elegante
+                    Box(
+                        modifier = Modifier
+                            .size(12.dp)
+                            .background(Color.Green, shape = CircleShape)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    Text("Disponible", color = Color.Green, fontSize = 14.sp)
+                }
+            }
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        // TARJETA DE REPORTE
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E)),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Detalles del Movimiento", color = Color.White, fontWeight = FontWeight.Medium)
+                Spacer(Modifier.height(12.dp))
+
+                OutlinedTextField(
+                    value = materialViewModel.materialTake,
+                    onValueChange = { materialViewModel.materialTake = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Cantidad a tomar") },
+                    textStyle = androidx.compose.ui.text.TextStyle(color = Color.White)
+                )
+
+                Spacer(Modifier.height(12.dp))
+
+                OutlinedTextField(
+                    value = materialViewModel.placeWork,
+                    onValueChange = { materialViewModel.placeWork = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Área / Proyecto / Máquina") },
+                    textStyle = androidx.compose.ui.text.TextStyle(color = Color.White)
                 )
             }
-            Spacer(Modifier.padding(vertical = 30.dp))
-
-
-            Text("Lugar",
-                fontSize = 20.sp,
-                color = Color.White)
-
         }
 
-        Spacer(Modifier.padding(vertical = 20.dp))
-        Text("Material tomado",fontSize = 33.sp,
-            color = Color.White)
+        Spacer(Modifier.weight(1f)) // Empuja el botón hacia abajo
 
-        OutlinedTextField(value = materialViewModel.materialTake, onValueChange = {materialViewModel.materialTake=it})
-
-        Spacer(Modifier.padding(vertical = 30.dp))
-         Text("Area/Proyecto/Maquina",
-             fontSize = 20.sp,
-             color = Color.White)
-
-        OutlinedTextField(value = materialViewModel.placeWork, onValueChange = {materialViewModel.placeWork=it})
-
-        Spacer(Modifier.padding(vertical = 30.dp))
-
-        // BOTÓN
+        // BOTÓN MODERNO
         Button(
-            onClick = {
-                // Opcional: pasar los datos de 'selections' al ViewModel aquí
-                materialViewModel.onSendClick()
-            },
+            onClick = { materialViewModel.onSendClick() },
             enabled = !materialViewModel.isSyncing,
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF2196F3),
+                disabledContainerColor = Color.Gray
+            )
         ) {
-            Text(if (materialViewModel.isSyncing) "Enviando..." else "Enviar Reporte")
+            if (materialViewModel.isSyncing) {
+                CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp))
+            } else {
+                Text("ENVIAR REPORTE", fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+            }
         }
-
-
-
-
-
-
     }
-
 }

@@ -34,7 +34,7 @@ class FirestoneRepository : UserRepository {
     override fun checkUserExists(userId: String, onResult: (Users?) -> Unit) {
         val cleanId = userId.trim()
 
-        db.collection("Users").document(cleanId).get()
+        db.collection("User").document(cleanId).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     // Intento de mapeo automático
@@ -81,11 +81,11 @@ class FirestoneRepository : UserRepository {
     }
     override fun  materialneed(takeMaterial: MaterialNeedStore, onResult: (Boolean) -> Unit){
         val materiala= hashMapOf(
-            "Material tomado" to takeMaterial.take_material,
-            "Busqueda de material" to takeMaterial.search_material ,
-            "Lugar de trabajo" to takeMaterial.place_store ,
-            "Lugar almacen" to takeMaterial.place_store ,
-            "time" to FieldValue.serverTimestamp()
+            "take_material" to takeMaterial.take_material,  //
+            "search_material" to takeMaterial.search_material ,
+            "place_work" to takeMaterial.place_store ,
+            "place_store" to takeMaterial.place_store ,
+            "created_by" to FieldValue.serverTimestamp()
 
         )
         db.collection("MaterialA")
