@@ -62,6 +62,12 @@ dependencies {
     //Serializable/JSON
     implementation(libs.kotlinx.serialization.json)
 
+    // Agrega esta línea para Storage
+    implementation(libs.firebase.storage)
+
+    //Camara
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
 
 
 ///Default System

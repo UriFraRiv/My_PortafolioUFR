@@ -17,8 +17,9 @@ import com.example.progenickfr.features.main.MachineScreen
 import com.example.progenickfr.features.main.MachineViewModel
 import com.example.progenickfr.features.main.MaterialWarehouse
 import com.example.progenickfr.features.main.Profile
-import com.example.progenickfr.features.main.materialneed
+
 import com.example.progenickfr.ui.theme.AnimationLogin
+import materialneed
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -82,7 +83,8 @@ fun NavigationScreens() {
       ///   --- PANTALLA MAterial ---
         composable<MaterialWarehouse> {
             val materialViewModel = remember{ materialneed(repository) }
-            MaterialWarehouse(materialViewModel=materialViewModel)
+            val HomeViewModel = remember{HomeViewModel(repository) }
+            MaterialWarehouse(materialViewModel=materialViewModel, homeViewModel = HomeViewModel )
         }
 
         // --- PANTALLA Asistencia ---

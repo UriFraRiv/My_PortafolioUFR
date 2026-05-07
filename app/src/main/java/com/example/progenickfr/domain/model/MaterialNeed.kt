@@ -6,4 +6,5 @@ data class MaterialNeedStore(
     val place_work: String="",
     val place_store:String="",
     val created_by: String = "",
+    val foto_url: String = ""
 )

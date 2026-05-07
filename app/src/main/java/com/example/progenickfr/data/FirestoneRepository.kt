@@ -79,19 +79,43 @@ class FirestoneRepository : UserRepository {
             .addOnSuccessListener { onResult(true) }
             .addOnFailureListener { onResult(false) }
     }
-    override fun  materialneed(takeMaterial: MaterialNeedStore, onResult: (Boolean) -> Unit){
-        val materiala= hashMapOf(
-            "take_material" to takeMaterial.take_material,  //
-            "search_material" to takeMaterial.search_material ,
-            "place_work" to takeMaterial.place_store ,
-            "place_store" to takeMaterial.place_store ,
-            "created_by" to FieldValue.serverTimestamp()
+//    override fun  materialneed(takeMaterial: MaterialNeedStore, onResult: (Boolean) -> Unit){
+//        val materiala= hashMapOf(
+//            "take_material" to takeMaterial.take_material,  //
+//            "search_material" to takeMaterial.search_material ,
+//            "place_work" to takeMaterial.place_store ,
+//            "place_store" to takeMaterial.place_store ,
+//            "created_by" to FieldValue.serverTimestamp()
+//
+//        )
+//        db.collection("MaterialA")
+//            .add(materiala)
+//            .addOnSuccessListener { onResult(true) }
+//            .addOnFailureListener { onResult(false) }
+
+    override fun materialneed(takeMaterial: MaterialNeedStore, onResult: (Boolean) -> Unit) {
+        val materiala = hashMapOf(
+            // 1. Convertimos a número para que la gráfica pueda sumar
+            "take_material" to (takeMaterial.take_material.toIntOrNull() ?: 0),
+
+            "search_material" to takeMaterial.search_material,
+            "place_work" to takeMaterial.place_work, // Asegúrate de usar el campo correcto
+            "place_store" to takeMaterial.place_store,
+
+            // 2. Guardamos la URL de la foto (Faltaba en tu código)
+            "foto_url" to takeMaterial.foto_url,
+
+            // 3. Nombre de fecha idéntico al HTML ("fecha" no "created_by")
+            "usuario" to takeMaterial.created_by, // Enviamos el ID del usuario
+            "fecha" to FieldValue.serverTimestamp()
+
 
         )
-        db.collection("MaterialA")
+
+        db.collection("MaterialA") // Coincide con la Web
             .add(materiala)
             .addOnSuccessListener { onResult(true) }
             .addOnFailureListener { onResult(false) }
+    }
 
     }
-}
