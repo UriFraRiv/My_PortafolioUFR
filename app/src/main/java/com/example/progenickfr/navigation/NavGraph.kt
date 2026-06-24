@@ -26,20 +26,17 @@ import materialneed
 @Composable
 fun NavigationScreens() {
     val navController = rememberNavController()
-    // Usamos remember para que el repositorio no se destruya al recrear la pantalla
     val repository = remember { FirestoneRepository() }
 
     NavHost(navController = navController, startDestination = RouteLogin) {
 
         // --- PANTALLA DE LOGIN ---
         composable<RouteLogin> {
-            // Forma correcta de instanciarlo para evitar errores de compilación
             val loginViewModel = remember { LoginViewModel(repository) }
 
             LoginScreen(
                 loginViewModel = loginViewModel,
                 navigatetoHome = { uid ->
-                    // Navegamos a animación pasando el UID real
                     navController.navigate(RouteAnimation(userId = uid))
                 }
             )
@@ -50,7 +47,6 @@ fun NavigationScreens() {
             val data: RouteAnimation = backStackEntry.toRoute()
             AnimationLogin(
                 navigateToNext = {
-                    // Pasamos el UID de la animación al Home
                     navController.navigate(RouteHome(userId = data.userId)) {
                         popUpTo(RouteLogin) { inclusive = true }
                     }
@@ -61,7 +57,6 @@ fun NavigationScreens() {
         // --- PANTALLA HOME ---
         composable<RouteHome> { backStackEntry ->
             val data: RouteHome = backStackEntry.toRoute()
-            // Importante: No crear el ViewModel directo, usar remember para estabilidad
             val homeViewModel = remember { HomeViewModel(repository) }
 
             HomeScreen(

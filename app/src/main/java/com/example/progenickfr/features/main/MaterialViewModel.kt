@@ -29,14 +29,9 @@ class materialneed(private val repository: UserRepository) : ViewModel() {
         val uid = user?.uid ?: ""
 
         if (uid.isNotEmpty() && selectedImageUri != null) {
-            isSyncing = true // Empezamos la carga
-
-            // MVVM: Le pedimos al repositorio los datos del usuario actual
+            isSyncing = true
             repository.checkUserExists(uid) { perfil ->
-                // Si el perfil existe, usamos el nombre o nómina, si no, el email o "Anónimo"
                 val nombreParaExcel = perfil?.name ?: user?.email ?: "Anónimo"
-
-                // Ahora sí, subimos la imagen pasando el nombre real
                 uploadImageAndSendReport(nombreParaExcel)
             }
         } else if (selectedImageUri == null) {
@@ -51,7 +46,6 @@ class materialneed(private val repository: UserRepository) : ViewModel() {
             storageRef.putFile(uri)
                 .addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        // PASO 3: Pasamos el nombre al reporte final
                         sendReport(nombreParaExcel, downloadUrl.toString())
                     }
                 }
@@ -64,7 +58,6 @@ class materialneed(private val repository: UserRepository) : ViewModel() {
             place_work = placeWork,
             place_store = placeStore,
             take_material = materialTake,
-            // AQUÍ SE ASIGNA AL MODELO:
             created_by = nombreParaExcel,
             foto_url = imageUrl
         )
@@ -72,7 +65,6 @@ class materialneed(private val repository: UserRepository) : ViewModel() {
         repository.materialneed(need_material) { success ->
             isSyncing = false
             if (success) {
-                // Limpiar campos para el siguiente reporte...
                 searchMAterial = ""
                 materialTake = ""
                 selectedImageUri = null

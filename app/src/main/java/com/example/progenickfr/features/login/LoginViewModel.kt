@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.progenickfr.domain.repository.UserRepository // Importamos la Interfaz
 import com.google.firebase.auth.FirebaseAuth
 
-// Ahora depende de la Interfaz (UserRepository), no de la clase directa
+
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {
 
     var email by mutableStateOf("")
@@ -44,7 +44,6 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
             }
             .addOnFailureListener { exception ->
                 isLoading = false
-                // Aquí podrías ser más específico con el error si quisieras
                 errorMsg = "Credenciales incorrectas o error de red"
             }
     }

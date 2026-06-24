@@ -32,8 +32,7 @@ fun MachineScreen(
         "Turno" to listOf("Turno 1", "Turno 2", "Mixto"),
         "Falla" to listOf("Eléctrico", "Mecánico", "Ingeniería")
     )
-
-    // Usamos el estado del ViewModel si es posible, o este mapa local para las selecciones
+    var expandedIndex by remember { mutableIntStateOf(-1) }
     val selections = remember { mutableStateMapOf<String, String>() }
 
     Column(
@@ -42,7 +41,7 @@ fun MachineScreen(
             .background(Color.Black)
             .verticalScroll(rememberScrollState())
     ) {
-        // --- ENCABEZADO ---
+
         Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 30.dp)) {
             Text(
                 text = "Reportes",
@@ -53,7 +52,6 @@ fun MachineScreen(
             )
         }
 
-        // --- CUERPO DEL FORMULARIO ---
         Column(modifier = Modifier.padding(18.dp)) {
 
             OutlinedTextField(
@@ -82,10 +80,6 @@ fun MachineScreen(
                     unfocusedTextColor = Color.White
                 )
             )
-
-            // 1. Asegúrate de tener este estado arriba
-            var expandedIndex by remember { mutableIntStateOf(-1) }
-
             formFields.forEachIndexed { index, (label, options) ->
                 Spacer(Modifier.height(15.dp))
 
@@ -95,13 +89,11 @@ fun MachineScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(label, color = Color.White, modifier = Modifier.weight(1f))
-
-                    // USAMOS UN BOX CON BORDE EN LUGAR DE UN TEXTFIELD
                     Box(modifier = Modifier.weight(1.5f)) {
                         Surface(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(56.dp) // Altura estándar de un TextField
+                                .height(56.dp)
                                 .clickable { expandedIndex = if (expandedIndex == index) -1 else index },
                             color = Color.Transparent,
                             shape = RoundedCornerShape(4.dp),
@@ -141,8 +133,6 @@ fun MachineScreen(
             }
 
             Spacer(Modifier.height(20.dp))
-
-            // Observaciones Finales
             OutlinedTextField(
                 value = machineViewModel.observations,
                 onValueChange = { machineViewModel.observations = it },
@@ -155,11 +145,8 @@ fun MachineScreen(
             )
 
             Spacer(Modifier.height(30.dp))
-
-            // BOTÓN
             Button(
                 onClick = {
-                    // Opcional: pasar los datos de 'selections' al ViewModel aquí
                     machineViewModel.onSendClick()
                 },
                 enabled = !machineViewModel.isSyncing,

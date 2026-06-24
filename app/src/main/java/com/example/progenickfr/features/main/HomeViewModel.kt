@@ -12,11 +12,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: UserRepository) : ViewModel() {
 
-    // Estado reactivo para el perfil
     var userProfile by mutableStateOf<Users?>(null)
         private set
 
-    // Estado para el menú lateral
+
     var selectedDrawerIndex = mutableIntStateOf(0)
 
     fun cargarDatos(userId: String) {

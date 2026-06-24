@@ -10,5 +10,4 @@ data class Reports(
     val problem: String = "",
     val shift: String = "",
     val status: String = "Pendiente",
-  //  val time: com.google.firebase.Timestamp? = null
 )

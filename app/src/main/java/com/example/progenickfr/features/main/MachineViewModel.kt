@@ -14,23 +14,16 @@ import com.google.firebase.auth.FirebaseAuth
         var description_fault by mutableStateOf("")
         var need_material by mutableStateOf("")
         var observations by mutableStateOf("")
-
-        // Agregamos un estado para saber si está cargando (útil para el inglés)
         var isSyncing by mutableStateOf(false)
 
-        // Esta es la función que debe llamar tu botón
         fun sendReport(userId: String) {
-            isSyncing = true // Iniciamos la carga
-
-            // Creamos el objeto con los datos actuales
+            isSyncing = true
             val newReport = NewReports(
                 fail_machine = description_fault,
                 material = need_material,
                 observations = observations,
-                created_by = userId // El UID que ya tienes
+                created_by = userId
             )
-
-            // Llamamos al repositorio que creaste
             repository.newReports(newReport) { success ->
                 isSyncing = false // Terminamos la carga
                 if (success) {

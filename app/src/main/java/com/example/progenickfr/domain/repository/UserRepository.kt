@@ -7,7 +7,6 @@ import com.example.progenickfr.domain.model.Reports
 import com.example.progenickfr.domain.model.Users
 
 interface UserRepository {
-    // Definimos QUÉ queremos hacer, pero no CÓMO se hace
     fun checkUserExists(userId: String, onResult: (Users?) -> Unit)
     fun guardarReporte(reporte: Reports, onResult: (Boolean) -> Unit)
 

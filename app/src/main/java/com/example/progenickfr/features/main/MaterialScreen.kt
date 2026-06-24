@@ -67,7 +67,6 @@ fun MaterialWarehouse(
 
         Spacer(Modifier.height(24.dp))
 
-        // --- TARJETA 1: BÚSQUEDA ---
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E)),
@@ -89,7 +88,6 @@ fun MaterialWarehouse(
 
         Spacer(Modifier.height(16.dp))
 
-        // --- TARJETA 2: EVIDENCIA VISUAL ---
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E)),
@@ -148,8 +146,6 @@ fun MaterialWarehouse(
         }
 
         Spacer(Modifier.height(16.dp))
-
-        // --- TARJETA 3: DETALLES ---
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E)),
@@ -176,11 +172,8 @@ fun MaterialWarehouse(
 
         Spacer(Modifier.weight(1f))
 
-        // --- BOTÓN DE ENVÍO CORREGIDO ---
-        // --- BOTÓN DE ENVÍO CORREGIDO ---
         Button(
             onClick = {
-                // Solo llama a la función, el VM se encarga del resto
                 materialViewModel.onSendClick()
             },
             enabled = !materialViewModel.isSyncing && materialViewModel.selectedImageUri != null,

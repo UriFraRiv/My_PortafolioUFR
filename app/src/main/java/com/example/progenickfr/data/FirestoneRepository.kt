@@ -65,13 +65,13 @@ class FirestoneRepository : UserRepository {
 
     override fun newReports (descriptionFail: NewReports, onResult: (Boolean) -> Unit) {
         val nuevoReporte = hashMapOf(
-            "fail_machine" to descriptionFail.fail_machine, // Correcto
-            "material_need" to descriptionFail.material,    // Correcto
-            "observations" to descriptionFail.observations, // AQUÍ VA EL TEXTO, no el ID
-            "created_by" to descriptionFail.created_by,     // AQUÍ VA EL ID
+            "fail_machine" to descriptionFail.fail_machine,
+            "material_need" to descriptionFail.material,
+            "observations" to descriptionFail.observations,
+            "created_by" to descriptionFail.created_by,
             "area" to descriptionFail.area,
             "attends" to descriptionFail.attends,
-            "time" to FieldValue.serverTimestamp()          // Opcional: añade la hora del reporte
+            "time" to FieldValue.serverTimestamp()
         )
 
         db.collection("NewReports")
@@ -79,19 +79,6 @@ class FirestoneRepository : UserRepository {
             .addOnSuccessListener { onResult(true) }
             .addOnFailureListener { onResult(false) }
     }
-//    override fun  materialneed(takeMaterial: MaterialNeedStore, onResult: (Boolean) -> Unit){
-//        val materiala= hashMapOf(
-//            "take_material" to takeMaterial.take_material,  //
-//            "search_material" to takeMaterial.search_material ,
-//            "place_work" to takeMaterial.place_store ,
-//            "place_store" to takeMaterial.place_store ,
-//            "created_by" to FieldValue.serverTimestamp()
-//
-//        )
-//        db.collection("MaterialA")
-//            .add(materiala)
-//            .addOnSuccessListener { onResult(true) }
-//            .addOnFailureListener { onResult(false) }
 
     override fun materialneed(takeMaterial: MaterialNeedStore, onResult: (Boolean) -> Unit) {
         val materiala = hashMapOf(
@@ -99,20 +86,13 @@ class FirestoneRepository : UserRepository {
             "take_material" to (takeMaterial.take_material.toIntOrNull() ?: 0),
 
             "search_material" to takeMaterial.search_material,
-            "place_work" to takeMaterial.place_work, // Asegúrate de usar el campo correcto
+            "place_work" to takeMaterial.place_work,
             "place_store" to takeMaterial.place_store,
-
-            // 2. Guardamos la URL de la foto (Faltaba en tu código)
             "foto_url" to takeMaterial.foto_url,
-
-            // 3. Nombre de fecha idéntico al HTML ("fecha" no "created_by")
-            "usuario" to takeMaterial.created_by, // Enviamos el ID del usuario
+            "usuario" to takeMaterial.created_by,
             "fecha" to FieldValue.serverTimestamp()
-
-
         )
-
-        db.collection("MaterialA") // Coincide con la Web
+        db.collection("MaterialA")
             .add(materiala)
             .addOnSuccessListener { onResult(true) }
             .addOnFailureListener { onResult(false) }

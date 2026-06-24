@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -42,14 +41,12 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun LoginScreen(
-    // Inyectamos el ViewModel (asegúrate de pasarlo en tu NavGraph)
+    // Inyectamos el ViewModel
     loginViewModel: LoginViewModel,
     navigatetoNewAccount: () -> Unit = {},
-    navigatetoHome: (String) -> Unit = {} // Cambiamos para recibir el UID
+    navigatetoHome: (String) -> Unit = {}
 ) {
     var showLoading by remember { mutableStateOf(true) }
-
-    // Splash Screen con Lottie
     LaunchedEffect(Unit) {
         delay(2000)
         showLoading = false
@@ -85,8 +82,6 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(15.dp))
                 Text("¡Hola, Gracias por ser parte de nosotros!", fontSize = 25.sp)
                 Spacer(modifier = Modifier.height(35.dp))
-
-                // Campo de Correo conectado al ViewModel
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = loginViewModel.email,
@@ -96,8 +91,6 @@ fun LoginScreen(
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
-
-                // Campo de Contraseña conectado al ViewModel
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = loginViewModel.password,
@@ -107,18 +100,16 @@ fun LoginScreen(
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
-
-                // BOTÓN DE LOGIN REAL
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         loginViewModel.iniciarSesion { uid ->
-                            navigatetoHome(uid) // Navegamos pasando el UID de Firebase
+                            navigatetoHome(uid)
                         }
                     },
-                    enabled = !loginViewModel.isLoading, // Se bloquea mientras carga
+                    enabled = !loginViewModel.isLoading,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Blue, // Ajusta a tu estilo
+                        containerColor = Color.Blue,
                         contentColor = Color.White
                     )
                 ) {
@@ -128,7 +119,6 @@ fun LoginScreen(
                         Text(text = stringResource(id = R.string.login_screen_text_login))
                     }
                 }
-
                 // Mostrar error si la validación falla
                 loginViewModel.errorMsg?.let {
                     Text(text = it, color = Color.Red, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp))
