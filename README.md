@@ -21,9 +21,8 @@ El sistema opera bajo un flujo centralizado que garantiza la consistencia de los
 
 | 1. Base de Datos en la Nube | 2. Panel de Consulta Web | 3. Reporte Automatizado Final |
 | :---: | :---: | :---: |
-| [![Base de Datos Firebase](https://lh3.googleusercontent.com/d/1GiuJWF19qjlH_F_nqkPhdaOWaM00JbGG)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) | [![Panel de Consulta Web](https://lh3.googleusercontent.com/d/1zDDFC4lV8oQ0zxtZDzteNPD0grDO979r)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) | [![Reporte Automatizado Final](https://lh3.googleusercontent.com/d/12wbcM9RvVppqjDHdRSQKx6Z4Or7DCxi4F7_mlaoBAuY)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) |
+| [![Base de Datos Firebase](https://lh3.googleusercontent.com/d/1GiuJWF19qjlH_F_nqkPhdaOWaM00JbGG)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) | [![Panel de Consulta Web](https://lh3.googleusercontent.com/d/1zDDFC4lV8oQ0zxtZDzteNPD0grDO979r)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) | [![Reporte Automatizado Final](https://lh3.googleusercontent.com/d/17EwuGNHHjHtxgBi3DdJNGjFlmoU7c1ec)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) |
 | *Consistencia de datos y Auth en Firebase* | *Consulta de reportes en tiempo real* | *Sincronización automatizada en la nube* |
----
 
 ###  Características Técnicas
 
