@@ -12,9 +12,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -31,6 +38,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -46,6 +56,7 @@ fun LoginScreen(
     navigatetoNewAccount: () -> Unit = {},
     navigatetoHome: (String) -> Unit = {}
 ) {
+    val passwordVisible = remember { mutableStateOf(false) }
     var showLoading by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
         delay(2000)
@@ -96,7 +107,24 @@ fun LoginScreen(
                     value = loginViewModel.password,
                     onValueChange = { loginViewModel.password = it },
                     shape = RoundedCornerShape(25),
-                    label = { Text(text = stringResource(id = R.string.login_screen_text_password)) }
+                    label = { Text(text = stringResource(id = R.string.login_screen_text_password))
+                    },visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),  // 3. Transforma el texto a puntitos solo para la pantalla
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    trailingIcon = {
+                        val image = if (passwordVisible.value) {
+                            Icons.Filled.CheckCircle
+                        } else {
+                            Icons.Filled.Check
+                        }
+                        val description =
+                            if (passwordVisible.value) "Ocultar contraseña" else "Mostrar contraseña"
+                        IconButton(onClick = {
+                            passwordVisible.value = !passwordVisible.value
+                        })
+                        {
+                            Icon(imageVector = image, contentDescription = description)
+                        }
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -119,14 +147,14 @@ fun LoginScreen(
                         Text(text = stringResource(id = R.string.login_screen_text_login))
                     }
                 }
-                // Mostrar error si la validación falla
+                //error si la validación falla
                 loginViewModel.errorMsg?.let {
                     Text(text = it, color = Color.Red, fontSize = 12.sp, modifier = Modifier.padding(top = 8.dp))
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Botón de cuenta nueva
+
                 Text(
                     text = stringResource(R.string.login_screen_text_New_Acoount),
                     modifier = Modifier.clickable { navigatetoNewAccount() },

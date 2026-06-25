@@ -42,10 +42,8 @@ android {
 }
 
 dependencies {
-    //New Dependencias
-
     // --- FIREBASE (Importante para MVVM) ---
-    // Usamos el BoM para que las versiones de Firebase no choquen entre sí
+
     implementation(platform(libs.androidx.compose.bom)) // BOM de Compose
     implementation(platform(libs.firebase.bom))        // BOM de Firebase
 
@@ -62,7 +60,7 @@ dependencies {
     //Serializable/JSON
     implementation(libs.kotlinx.serialization.json)
 
-    // Agrega esta línea para Storage
+    //  para Storage
     implementation(libs.firebase.storage)
 
     //Camara
