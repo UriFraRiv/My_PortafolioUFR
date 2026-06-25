@@ -2,7 +2,7 @@
 
 A continuación, se presenta una demostración en video (1 min 20 s) del funcionamiento de la aplicación móvil nativa y su ecosistema de sincronización automatizada:
 
-[▶️ Haz clic aquí para ver el video de demostración](LINK_)
+[▶️ Haz clic aquí para ver el video de demostración](https://www.youtube.com/watch?v=5AzKc7ZwqTY_)
 
 ---
 
@@ -11,7 +11,7 @@ Este proyecto fue diseñado para resolver la necesidad de levantar reportes mult
 
 ---
 
-### 🏗️ Arquitectura y Flujo de Información
+### Arquitectura y Flujo de Información
 
 El sistema opera bajo un flujo centralizado que garantiza la consistencia de los datos:
 
@@ -19,31 +19,30 @@ El sistema opera bajo un flujo centralizado que garantiza la consistencia de los
 2. **Centralización (Firebase):** Los datos se sincronizan en tiempo real y las imágenes se almacenan de forma segura en la nube.
 3. **Consulta y Automatización (Web & Node.js):** Una interfaz web permite visualizar los registros recopilados, mientras un script automatizado estructura la información para su uso administrativo.
 
-| 1. Base de Datos en la Nube | 2. Panel de Consulta Web | 3. Reporte Administrativo Final |
+| 1. Base de Datos en la Nube | 2. Panel de Consulta Web | 3. Reporte Automatizado Final |
 | :---: | :---: | :---: |
-| *(Firebase)* | *( Web)* | *(Excel)* |
-| *Consistencia de datos y Auth en Firebase* | *Consulta de reportes en tiempo real* | *Sincronización automatizada con Excel Online* |
-
-> 📌 *Nota: Las imágenes del ecosistema web y base de datos se actualizarán próximamente.*
-
+| [![Base de Datos Firebase](https://lh3.googleusercontent.com/d/1GiuJWF19qjlH_F_nqkPhdaOWaM00JbGG)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) | [![Panel de Consulta Web](https://lh3.googleusercontent.com/d/1zDDFC4lV8oQ0zxtZDzteNPD0grDO979r)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) | [![Reporte Automatizado Final](https://lh3.googleusercontent.com/d/12wbcM9RvVppqjDHdRSQKx6Z4Or7DCxi4F7_mlaoBAuY)](https://drive.google.com/drive/folders/11K-TlXy42DOsmktJ2Nztdu1XnV1KlXFg?usp=sharing) |
+| *Consistencia de datos y Auth en Firebase* | *Consulta de reportes en tiempo real* | *Sincronización automatizada en la nube* |
 ---
 
-### 🚀 Características Técnicas
+###  Características Técnicas
 
-#### 📱 Desarrollo Android Nativo (Fuerte Principal)
+#### 📱 Desarrollo Android Nativo
 * **Interfaz de Usuario:** Construida al 100% con **Jetpack Compose** y Material 3, garantizando vistas reactivas, modernas y adaptadas a entornos de trabajo.
 * **Arquitectura:** Implementación estricta del patrón de diseño **MVVM (Model-View-ViewModel)** y Programación Orientada a Objetos para mantener la lógica de negocio completamente desacoplada de la interfaz.
 * **Navegación:** Menú lateral dinámico (**ModalNavigationDrawer**) integrado mediante *Jetpack Navigation Component* para un flujo limpio tipo *Single Page Application*.
 * **Control de Estados:** Gestión reactiva de formularios utilizando `remember` y `mutableStateOf` (incluyendo máscaras de visibilidad para contraseñas y deshabilitación de botones durante procesos de red).
 * **Feedback Visual:** Pantallas de carga (Splash Screens) y transiciones fluidas optimizadas mediante la renderización de animaciones **Lottie (JSON)**.
 
-#### ☁️ Integración y Ecosistema (Estructura y Conectividad)
+
+####  Integración y Ecosistema (Estructura y Conectividad)
 * **Autenticación:** Control seguro de acceso de usuarios mediante *Firebase Authentication*.
 * **Persistencia Cloud:** Almacenamiento de reportes estructurados en *Firestore Realtime Database* y carga eficiente de evidencias fotográficas vía *Firebase Storage* utilizando el manejo de flujos locales (*InputStreams*).
 * **Automatización:** Integración lógica de un script en *Node.js* para mapear flujos de datos en formato JSON y transcribirlos automáticamente hacia hojas de cálculo de *Excel Online* para uso administrativo.
 
 ---
-### 🛠️ Tecnologías Utilizadas
+
+### Tecnologías Utilizadas
 * **Lenguaje:** Kotlin
 * **Framework UI:** Jetpack Compose (Material 3)
 * **Backend as a Service (BaaS):** Firebase (Auth, Firestore, Storage)
